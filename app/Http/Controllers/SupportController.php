@@ -66,7 +66,7 @@ class SupportController extends Controller
                 $request->observacoes
             );
 
-            $osAugix = $result['id'] ?? $result['chamados_augix'] ?? null;
+            $osAugix = $result['id'] ?? $result['su_oss_chamado'] ?? null;
             $protocolo = $result['protocolo'] ?? null;
 
             $ticket = Ticket::create([
