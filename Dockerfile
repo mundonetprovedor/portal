@@ -2,7 +2,7 @@ FROM php:8.3-fpm-alpine
 
 LABEL maintainer="MUNDONET"
 
-RUN apk add --no-cache curl \
+RUN apk add --no-cache curl oniguruma-dev libpng-dev libzip-dev \
     && docker-php-ext-install -j$(nproc) pdo_mysql mbstring gd zip intl opcache \
     && pecl install redis \
     && docker-php-ext-enable redis
