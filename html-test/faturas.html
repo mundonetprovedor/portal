@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faturas - Portal MUNDONET</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <span class="brand">MUNDONET</span>
+        <nav>
+            <a href="dashboard.html">Painel</a>
+            <a href="faturas.html" class="active">Faturas</a>
+            <a href="suporte.html">Suporte</a>
+        </nav>
+        <button class="logout" onclick="localStorage.clear();location.href='index.html'">Sair</button>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>Faturas</h2>
+            <p>Gerencie suas faturas e pagamentos</p>
+        </div>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vencimento</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>07/07/2026</td>
+                        <td>R$ 129,90</td>
+                        <td><span class="badge pending">Pendente</span></td>
+                        <td><button style="background:#0B3D91;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px">Pagar</button></td>
+                    </tr>
+                    <tr>
+                        <td>07/06/2026</td>
+                        <td>R$ 129,90</td>
+                        <td><span class="badge paid">Paga</span></td>
+                        <td><a href="#" style="font-size:13px">Ver detalhes</a></td>
+                    </tr>
+                    <tr>
+                        <td>07/05/2026</td>
+                        <td>R$ 129,90</td>
+                        <td><span class="badge paid">Paga</span></td>
+                        <td><a href="#" style="font-size:13px">Ver detalhes</a></td>
+                    </tr>
+                    <tr>
+                        <td>07/04/2026</td>
+                        <td>R$ 129,90</td>
+                        <td><span class="badge paid">Paga</span></td>
+                        <td><a href="#" style="font-size:13px">Ver detalhes</a></td>
+                    </tr>
+                    <tr>
+                        <td>07/03/2026</td>
+                        <td>R$ 129,90</td>
+                        <td><span class="badge paid">Paga</span></td>
+                        <td><a href="#" style="font-size:13px">Ver detalhes</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

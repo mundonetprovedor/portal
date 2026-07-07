@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte - Portal MUNDONET</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <span class="brand">MUNDONET</span>
+        <nav>
+            <a href="dashboard.html">Painel</a>
+            <a href="faturas.html">Faturas</a>
+            <a href="suporte.html" class="active">Suporte</a>
+        </nav>
+        <button class="logout" onclick="localStorage.clear();location.href='index.html'">Sair</button>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>Suporte</h2>
+            <p>Abra um chamado ou acompanhe os existentes</p>
+        </div>
+
+        <div class="card">
+            <h3>Abrir Chamado</h3>
+            <form class="ticket-form" id="ticketForm">
+                <div>
+                    <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">Categoria</label>
+                    <select id="categoria">
+                        <option value="">Selecione...</option>
+                        <option value="conexao">Problema com conexão</option>
+                        <option value="lentidao">Lentidão</option>
+                        <option value="queda">Queda de sinal</option>
+                        <option value="equipamento">Problema com equipamento</option>
+                        <option value="conta">Dúvidas sobre conta/fatura</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">Descrição</label>
+                    <textarea id="descricao" placeholder="Descreva o problema detalhadamente..."></textarea>
+                </div>
+                <div>
+                    <button type="submit" style="background:#0B3D91;color:#fff;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600">Enviar Chamado</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Meus Chamados</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Categoria</th>
+                        <th>Status</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody id="ticketsBody">
+                    <tr>
+                        <td>10234</td>
+                        <td>Lentidão</td>
+                        <td><span class="badge open">Aberto</span></td>
+                        <td>05/07/2026</td>
+                    </tr>
+                    <tr>
+                        <td>10198</td>
+                        <td>Queda de sinal</td>
+                        <td><span class="badge paid">Resolvido</span></td>
+                        <td>28/06/2026</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ticketForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const cat = document.getElementById('categoria').value;
+            const desc = document.getElementById('descricao').value;
+            if (!cat || !desc) { alert('Preencha todos os campos'); return; }
+
+            const tbody = document.getElementById('ticketsBody');
+            const row = document.createElement('tr');
+            const today = new Date().toLocaleDateString('pt-BR');
+            row.innerHTML = `<td>${Math.floor(Math.random()*90000)+10000}</td><td>${cat}</td><td><span class="badge open">Aberto</span></td><td>${today}</td>`;
+            tbody.insertBefore(row, tbody.firstChild);
+            this.reset();
+            alert('Chamado aberto com sucesso!');
+        });
+    </script>
+</body>
+</html>

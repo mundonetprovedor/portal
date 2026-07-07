@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Portal MUNDONET</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <span class="brand">MUNDONET</span>
+        <nav>
+            <a href="dashboard.html" class="active">Painel</a>
+            <a href="faturas.html">Faturas</a>
+            <a href="suporte.html">Suporte</a>
+        </nav>
+        <button class="logout" onclick="localStorage.clear();location.href='index.html'">Sair</button>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>Olá, Higor</h2>
+            <p>Confira o resumo da sua conta</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="label">Status</div>
+                <div class="value" style="color:#27ae60">Ativo</div>
+                <div class="sub">Contrato ativo</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Velocidade</div>
+                <div class="value">300 MEGA</div>
+                <div class="sub">Plano fibra óptica</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Próxima Fatura</div>
+                <div class="value">R$ 129,90</div>
+                <div class="sub">Vence em 15/07/2026</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Chamados Abertos</div>
+                <div class="value">0</div>
+                <div class="sub">Nenhum problema</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Meus Contratos</h3>
+            <div class="contract-card">
+                <div class="info">
+                    <h4>Fibra Óptica 300 MEGA</h4>
+                    <p>Contrato #104726 • Contrato ativo</p>
+                </div>
+                <div class="price">
+                    <div class="amount">R$ 129,90</div>
+                    <div class="period">/mês</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Últimas Faturas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vencimento</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>07/07/2026</td>
+                        <td>R$ 129,90</td>
+                        <td><span class="badge pending">Pendente</span></td>
+                    </tr>
+                    <tr>
+                        <td>07/06/2026</td>
+                        <td>R$ 129,90</td>
+                        <td><span class="badge paid">Paga</span></td>
+                    </tr>
+                    <tr>
+                        <td>07/05/2026</td>
+                        <td>R$ 129,90</td>
+                        <td><span class="badge paid">Paga</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
