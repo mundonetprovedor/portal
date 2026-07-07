@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portal-mundonet-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - ./storage/app/public:/var/www/storage/app/public
+      - ./storage/logs:/var/www/storage/logs
+      - ./storage/framework/cache:/var/www/storage/framework/cache
+      - ./storage/framework/sessions:/var/www/storage/framework/sessions
+      - ./public/uploads:/var/www/public/uploads
+    networks:
+      - portal-network
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - APP_ENV=${APP_ENV:-production}
+      - APP_DEBUG=${APP_DEBUG:-false}
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_DATABASE:-portal_mundonet}
+      - DB_USERNAME=${DB_USERNAME:-mundonet}
+      - DB_PASSWORD=${DB_PASSWORD:-secret_password}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/up"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  db:
+    image: mariadb:11
+    container_name: portal-mundonet-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-portal_mundonet}
+      MYSQL_USER: ${DB_USERNAME:-mundonet}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret_password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootsecret}
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - portal-network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  nginx:
+    image: nginx:alpine
+    container_name: portal-mundonet-nginx
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/http.d/default.conf
+    networks:
+      - portal-network
+    depends_on:
+      - app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  portal-network:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local
