@@ -2,8 +2,21 @@ FROM php:8.3-fpm-alpine
 
 LABEL maintainer="MUNDONET"
 
-RUN apk add --no-cache curl oniguruma-dev libpng-dev libzip-dev \
-    && docker-php-ext-install -j$(nproc) pdo_mysql mbstring gd zip intl opcache \
+RUN apk add --no-cache \
+    curl \
+    oniguruma-dev \
+    libpng-dev \
+    libzip-dev \
+    icu-dev \
+    libxml2-dev \
+    && docker-php-ext-install -j$(nproc) \
+        pdo_mysql \
+        mbstring \
+        gd \
+        zip \
+        intl \
+        opcache \
+        xml \
     && pecl install redis \
     && docker-php-ext-enable redis
 
