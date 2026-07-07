@@ -8,13 +8,12 @@ services:
     container_name: portal-mundonet-app
     restart: unless-stopped
     working_dir: /var/www
+    ports:
+      - "${APP_PORT:-8080}:80"
     volumes:
       - .:/var/www
-      - ./storage/app/public:/var/www/storage/app/public
-      - ./storage/logs:/var/www/storage/logs
-      - ./storage/framework/cache:/var/www/storage/framework/cache
-      - ./storage/framework/sessions:/var/www/storage/framework/sessions
-      - ./public/uploads:/var/www/public/uploads
+      - app-storage:/var/www/storage
+      - app-uploads:/var/www/public/uploads
     networks:
       - portal-network
     depends_on:
@@ -55,29 +54,14 @@ services:
       retries: 5
       start_period: 30s
 
-  nginx:
-    image: nginx:alpine
-    container_name: portal-mundonet-nginx
-    restart: unless-stopped
-    ports:
-      - "${APP_PORT:-8080}:80"
-    volumes:
-      - .:/var/www
-      - ./docker/nginx/nginx.conf:/etc/nginx/http.d/default.conf
-    networks:
-      - portal-network
-    depends_on:
-      - app
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
 networks:
   portal-network:
     driver: bridge
 
 volumes:
   db-data:
+    driver: local
+  app-storage:
+    driver: local
+  app-uploads:
     driver: local
